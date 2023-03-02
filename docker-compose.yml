@@ -24,6 +24,17 @@ services:
       - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
       - AWS_DEFAULT_ACL=${AWS_DEFAULT_ACL}
       - AWS_STORAGE_URL_BASE=${AWS_STORAGE_URL_BASE}
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
 
 volumes:
   dev-static-data:
+  dev-db-data:
