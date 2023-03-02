@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -14,7 +13,6 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
     queryset = UserSerializer.Meta.model.objects.order_by('-created_at').filter(is_deleted=False)
     pagination_class = StandardResultsSetPagination
-    permission_classes = [IsAuthenticated]
 
 
 class Login(TokenObtainPairView):
