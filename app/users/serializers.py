@@ -7,7 +7,7 @@ from users.models import User
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        exclude = ['is_deleted', 'groups', 'user_permissions', 'confirmation_code']
+        exclude = ['is_deleted', 'groups', 'user_permissions']
 
     def create(self, validated_data):
         user = User.objects.create(**validated_data)
