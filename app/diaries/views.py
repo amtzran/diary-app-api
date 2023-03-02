@@ -1,8 +1,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
+from base.export import ExportExcel
 from base.pagination import StandardResultsSetPagination
 from diaries.serializers import *
 
@@ -28,3 +30,11 @@ class DiaryContactViewSet(ModelViewSet):
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['diary']
     search_fields = ['contact_name', 'contact_phone', 'contact_email', 'diary__name']
+
+    @action(detail=False, methods=['GET'])
+    def export_excel(self, request):
+        contacts = self.filter_queryset(self.get_queryset())
+        contacts_payload = ExportExcel.contacts_payload
+        serializer = DiaryContactSerializer()
+
+        return ExportExcel.create_xlsx(contacts, contacts_payload, serializer, 'diary_contacts.xlsx')
