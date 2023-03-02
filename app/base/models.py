@@ -21,3 +21,7 @@ class BaseModel(models.Model):
 
     def hard_delete(self):
         super(BaseModel, self).delete()
+
+
+def name_file_avatar(instance, filename):
+    return f"contacts/avatars/{instance.id}.{filename.split('.')[1]}"

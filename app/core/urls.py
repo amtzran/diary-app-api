@@ -15,4 +15,6 @@ urlpatterns = [
     path('authentication/refresh-token/', TokenRefreshView.as_view(), name='token_refresh'),
     # Section Api users
     path('', include('users.routers')),
+    # Section Api diaries
+    path('', include('diaries.routers')),
 ]

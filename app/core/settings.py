@@ -41,6 +41,7 @@ BASE_APPS = [
 LOCAL_APPS = [
     'base',
     'users',
+    'diaries',
 ]
 
 THIRD_APPS = [
